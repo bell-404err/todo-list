@@ -6,6 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = ({ mode }) => {
 
+    const isDev = mode === 'development';
+    
     return {
         mode,
         entry: path.resolve(__dirname, 'src', 'index.jsx'),
@@ -46,7 +48,18 @@ module.exports = ({ mode }) => {
                         // Creates `style` nodes from JS strings ^
                         'style-loader',
                         // Translates CSS into CommonJS ^
-                        'css-loader',
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                modules: {
+                                    auto: (resPath) => resPath.includes('.module.'),
+                                    localIdentName: isDev
+                                        ? '[path][name]__[local]--[hash:base64:5]'
+                                        : '[hash:base64:8]',
+                                },
+
+                            },
+                        },
                         // Compiles Sass to CSS ^
                         'sass-loader',
                     ],
