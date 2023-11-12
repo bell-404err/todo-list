@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon ./src/index.js"
+    "start": "npx nodemon ./src/index.js",
+    "lint:js": "npx eslint --ext .jsx,.js ./",
+    "lint:js:fix": "npx eslint --ext .jsx,.js ./ --fix"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +16,7 @@
     "mongoose": "^8.0.0"
   },
   "devDependencies": {
+    "eslint": "^8.53.0",
     "nodemon": "^3.0.1"
   }
 }
