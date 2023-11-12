@@ -1,7 +1,7 @@
 const {initDB} = require("../config/db");
 const express = require('express');
 const TaskModel = require("./models/taskModel");
-
+require('dotenv').config(); //Содержит глобальные энвы ноды из данных файла .env
 
 async function createServer() {
     try {
@@ -10,7 +10,8 @@ async function createServer() {
 
 // ----- Express
         const app = express(); //Initialization server
-        const port = 3000;
+        const port = process.env.PORT || 3000;
+        // const port = 3000;
 
         app.use(express.json());
 
