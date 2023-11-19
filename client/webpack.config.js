@@ -1,15 +1,20 @@
-// Node path - ??
-// __dirname - ??
+const path = require('path');
+const buildWebpack = require(path.resolve(__dirname, 'build', 'buildWebpack'));
 
-const path = require("path");
+module.exports = ({ mode }) => {
+  const isDev = mode === 'development';
 
-module.exports = {
-    mode: "development",
-    entry: path.resolve(__dirname, "src", "index.js"),
-    output: {
-        filename: "[name].[contenthash].js",
-        path: path.resolve(__dirname, "build"),
-        clean: true,
-        publicPath: "/"
+  const projectConfig = {
+    mode: isDev ? 'development' : 'production',
+
+    paths: {
+      entry: path.resolve(__dirname, 'src', 'index.jsx'),
+      output: path.resolve(__dirname, '..', 'server', 'public'),
+      public: '/static/',
+      htmlPluginTemplate: path.resolve(__dirname, 'public', 'index.html')
     }
+  };
+
+    
+  return buildWebpack(projectConfig);
 };
