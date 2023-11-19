@@ -2,13 +2,13 @@ import cls from './index.module.scss'; //css module формируют объе�
 
 
 const App = () => {
-    console.log(cls);
+  console.log(cls);
 
-    return (
-        <div className={cls.test}>
+  return (
+    <div className={cls.test}>
             hello
-        </div>
-    );
+    </div>
+  );
 };
 
 export default App;

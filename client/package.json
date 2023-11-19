@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --env mode=production",
+    "build:prod": "webpack --env mode=production",
     "build:dev": "webpack --env mode=development",
-    "watch": "webpack --watch --env mode=development",
+    "build:watch": "webpack --watch --env mode=development",
     "lint:js": "npx eslint --ext .jsx,.js ./",
     "lint:js:fix": "npx eslint --ext .jsx,.js ./ --fix"
   },
@@ -25,6 +25,7 @@
     "eslint": "^8.53.0",
     "eslint-plugin-react": "^7.33.2",
     "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
