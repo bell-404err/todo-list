@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 const taskSchema = new Schema({
     name: String,
-    desc: String
+    createdAt: Object,
+    checked: Boolean
 
 // ----- In developing
     // date: {

@@ -45,6 +45,7 @@ module.exports = {
       'error',
       'always'
     ],
+    'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'object-curly-spacing': [1, 'always'],
     'no-unused-vars': 'warn',

@@ -1,5 +1,5 @@
 const express = require('express');
-const TaskModel = require('./models/taskModel');
+const TaskModel = require('./models/TaskModel');
 const router = express.Router();
 
 // app - роут. async fn - контроллер
@@ -23,7 +23,9 @@ router.post('/task', async (req, res) => {
             throw new Error('Validation error'); // Проверка сервера
         }
 
-        const createdTask = await TaskModel.create({ name }); // Создание записи в БД
+        const createdTask = await TaskModel.create({
+            name,
+        }); // Создание записи в БД
 
         return res.send(createdTask); // Общение с пользователем.
         // Отправка клиенту созданной задачи (что угодно, например оповещение пользователя)
