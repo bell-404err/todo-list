@@ -3,6 +3,7 @@ import TodoForm from '../TodoForm/TodoForm';
 import TodoEditForm from '../TodoEditForm/TodoEditForm';
 import TodoList from '../TodoList/TodoList';
 import { Box } from '@mui/system';
+import request from '../../helpers/api';
 
 const TodoWrapper = () => {
 
@@ -10,12 +11,14 @@ const TodoWrapper = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [activeTaskId, setActiveTaskId] = useState(null);
 
+  const fetchAllTodos = () => {
+    request('/tasks')
+      .then(({ tasks }) => setTodos(tasks));
+  };
+  useEffect(() => fetchAllTodos(), []);
+
   const addTodo = (todo) => {
-    setTodos(todos => [...todos, {
-      id: new Date().getTime(),
-      text: todo,
-      isCompleted: false
-    }]);
+    setTodos(todos => [...todos, todo]);
   };
 
   const editTask = (id) => {
@@ -27,30 +30,21 @@ const TodoWrapper = () => {
     setIsEditing(false);
     setActiveTaskId(null);
 
-    setTodos(todos =>
-      todos.filter(todo => todo.id !== id));
+    request('/task', 'DELETE', { id })
+      .then(() => fetchAllTodos());
   };
 
-  const onCheckedTask = (id) => {
-    setTodos(todos =>
-      todos.map(todo =>
-        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo));
-  };
-
-  const onEditTask = (text, id) => {
-    setTodos(todos =>
-      todos.map(todo =>
-        todo.id === id ? { ...todo, text } : todo));
+  const onEditTask = (id, data) => {
+    request('/task', 'PUT', { id, ...data })
+      .then(() => fetchAllTodos());
 
     setIsEditing(false);
     setActiveTaskId(null);
   };
 
   const activeTask = useMemo(() => {
-    return todos.find((task) => task.id === activeTaskId);
+    return todos.find((task) => task._id === activeTaskId);
   }, [todos, activeTaskId]);
-
-  useEffect(() => {}, [todos]);
 
   return (
     <Box
@@ -71,11 +65,11 @@ const TodoWrapper = () => {
           onEditTask={onEditTask}
         />
       ) : (
-        <TodoForm addTodo={ addTodo }/>
+        <TodoForm addTodo={ addTodo } fetchAllTodos={fetchAllTodos} />
       )}
 
       <TodoList
-        onCheckedTask={onCheckedTask}
+        onEditTask={onEditTask}
         todos={todos}
         deleteTask={deleteTask}
         editTask={editTask}

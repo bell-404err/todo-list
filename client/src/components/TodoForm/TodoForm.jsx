@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { TextField, Stack, Button } from '@mui/material';
+import request from '../../helpers/api';
 
 
-const TodoForm = ({ addTodo }) => {
+const TodoForm = ({ addTodo, fetchAllTodos }) => {
 
   const [task, setTask] = useState('');
+
+  const createTask = () => {
+    request('/task', 'POST', { name: task, checked: false })
+      .then(() => fetchAllTodos());
+  };
 
   const submitForm = e => {
     e.preventDefault();
 
     if (task.length !== 0) {
-      addTodo(task);
+      createTask();
       setTask('');
     }
   };

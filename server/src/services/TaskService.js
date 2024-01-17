@@ -1,9 +1,6 @@
 const TaskModel = require('../models/TaskModel');
 
 class TaskService {
-    constructor() {
-
-    }
 
     async create(data) {
         return TaskModel.create(data);
@@ -22,3 +19,5 @@ class TaskService {
     }
 
 }
+
+module.exports = TaskService;

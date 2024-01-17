@@ -3,16 +3,16 @@ import { List } from '@mui/material';
 import TodoListItem from './TodoListItem/TodoListItem';
 
 
-const TodoList = ({ todos, editTask, deleteTask, onCheckedTask }) => {
+const TodoList = ({ todos, editTask, deleteTask, onEditTask }) => {
   return (
     <List>
       {todos.map(item => {
         return <TodoListItem
           todo={item}
-          key={item.id}
+          key={item._id}
           editTask={editTask}
           deleteTask={deleteTask}
-          onCheckedTask={onCheckedTask}
+          onEditTask={onEditTask}
         />;
       })}
     </List>

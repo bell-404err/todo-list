@@ -3,16 +3,16 @@ import { Button, Stack, TextField } from '@mui/material';
 
 const TodoEditForm = ({ onEditTask, activeTask }) => {
 
-  const [value, setValue] = useState(activeTask.text);
+  const [taskName, setTaskName] = useState(activeTask.name);
 
   const submitForm = e => {
     e.preventDefault();
-    onEditTask(value, activeTask.id);
-    setValue('');
+    onEditTask(activeTask._id, { name: taskName, checked: activeTask.checked });
+    setTaskName('');
   };
 
   const onChangeTaskValue = (e) => {
-    setValue(e.target.value);
+    setTaskName(e.target.value);
   };
 
   return (
@@ -26,14 +26,14 @@ const TodoEditForm = ({ onEditTask, activeTask }) => {
         label="What is the task :)"
         variant="outlined"
         onChange={onChangeTaskValue}
-        value={value}
+        value={taskName}
         fullWidth
       />
 
       <Button
         onClick={submitForm}
         variant='outlined'
-        disabled={value.length === 0}
+        disabled={taskName.length === 0}
         size='large'
         type="submit"
       >

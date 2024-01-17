@@ -2,7 +2,7 @@ const { initDB } = require('../config/db');
 const express = require('express');
 const path = require('path');
 require('dotenv').config(); //Содержит глобальные энвы ноды из данных файла .env
-const tasks = require('./tasks');
+const tasksRouter = require('./tasks');
 
 async function createServer() {
     try {
@@ -23,7 +23,7 @@ async function createServer() {
         //     res.send('Connection successful!');
         // })
 
-        app.use('/api', tasks);
+        app.use('/api', tasksRouter);
 
         // * - все другие роуты
         app.get('*', async (req, res) => {

@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { ListItem, IconButton, Stack, ListItemText, Checkbox, ListItemButton } from '@mui/material';
 
 
-const TodoListItem = ({ todo, editTask, deleteTask, onCheckedTask }) => {
+const TodoListItem = ({ todo, editTask, deleteTask, onEditTask }) => {
 
   const buttons = useMemo(() => {
     return (
@@ -13,13 +13,13 @@ const TodoListItem = ({ todo, editTask, deleteTask, onCheckedTask }) => {
         direction='row'
       >
         <IconButton
-          onClick={() => editTask(todo.id)}
+          onClick={() => editTask(todo._id)}
         >
           <EditIcon/>
         </IconButton>
 
         <IconButton
-          onClick={() => deleteTask(todo.id)}
+          onClick={() => deleteTask(todo._id)}
         >
           <DeleteIcon
             color='error'
@@ -35,12 +35,12 @@ const TodoListItem = ({ todo, editTask, deleteTask, onCheckedTask }) => {
       secondaryAction={buttons}
     >
       <ListItemButton
-        onClick={() => onCheckedTask(todo.id)}
+        onClick={() => onEditTask(todo._id, { name: todo.name, checked: !todo.checked })}
       >
-        <Checkbox checked={todo.isCompleted}/>
+        <Checkbox checked={todo.checked}/>
 
         <ListItemText>
-          {todo.text}
+          {todo.name}
         </ListItemText>
       </ListItemButton>
     </ListItem>
